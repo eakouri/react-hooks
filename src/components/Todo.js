@@ -31,11 +31,11 @@ const todo = (props) => {
     const todoAddHandler = () => {
         //set a new value, so need to override old one
         //note concat returns a new array so it will safely replace the old one
-        setTodoList(todoList.concat(todoName));
         axios
             .post('https://hooks-b95c8.firebaseio.com/todos.json', { name: todoName })
             .then(res => {
-                console.log(res);
+                const todoItem = {id: res.data.name, name: todoName};
+                setTodoList(todoList.concat(todoItem));
             })
             .catch(err => {
                 console.log(err);
